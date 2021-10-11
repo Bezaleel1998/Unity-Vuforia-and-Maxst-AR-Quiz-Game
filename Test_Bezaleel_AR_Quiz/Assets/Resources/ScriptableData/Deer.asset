@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db9f560463515214f8103ce372f0f6d9, type: 3}
+  m_Name: Deer
+  m_EditorClassIdentifier: 
+  animalTrackerName: Deer_Tracker
+  question: 'What Animal is it ?
+
+    (I love jumping, but i''m not a rabbit. and
+    i have high antlers)'
+  answerAnimalName: Deer
+  multipleChoices:
+  - Lion
+  - Deer
+  - Kangoroo
+  - Wolf
+  hasChoosen: 1
+  status: True
+  indexAnswer: 1
+  trueIndex: 1

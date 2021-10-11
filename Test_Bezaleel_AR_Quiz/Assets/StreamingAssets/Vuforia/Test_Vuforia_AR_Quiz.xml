@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
+  <Tracking>
+    <ImageTarget name="BearTracker" size="1.000000 1.000000" />
+    <ImageTarget name="BeeTracker" size="1.000000 1.000000" />
+    <ImageTarget name="BirdTracker" size="1.000000 1.000000" />
+    <ImageTarget name="CatTracker" size="1.000000 1.000000" />
+    <ImageTarget name="DeerTracker" size="1.000000 1.000000" />
+    <ImageTarget name="DogTracker" size="1.000000 1.000000" />
+    <ImageTarget name="DuckTracker" size="1.000000 1.000000" />
+    <ImageTarget name="FishTracker" size="1.000000 1.000000" />
+    <ImageTarget name="PenguinTracker" size="1.000000 1.000000" />
+    <ImageTarget name="WolfTracker" size="1.000000 1.000000" />
+  </Tracking>
+</QCARConfig>
