@@ -20,7 +20,7 @@ public class Game_Manager : DefaultTrackableEventHandler
     [Header("UI")]
     public GameObject desPanel;
     public Text animalName;
-    public Text animalDes;
+    //public Text animalDes;
 
     void Awake()
     {
@@ -45,13 +45,13 @@ public class Game_Manager : DefaultTrackableEventHandler
     private void Detection(string detectedTrackerName)
     {
         
-        for (int j = 0; j < animal3DObject.Length; j++)
+        for (int i = 0; i < animal3DObject.Length; i++)
         {
 
-            for (int i = 0; i < animalDatas.Length; i++)
+            for (int j = 0; j < animalDatas.Length; j++)
             {
 
-                if (detectedTrackerName.Contains(animalDatas[i].answerAnimalName) && detectedTrackerName.Contains(animal3DObject[j].name))
+                if (detectedTrackerName.Contains(animalDatas[j].answerAnimalName) && detectedTrackerName.Contains(animal3DObject[i].name))
                 {
 
                     animal3DObject[i].gameObject.SetActive(true);
@@ -59,8 +59,8 @@ public class Game_Manager : DefaultTrackableEventHandler
 
                     //Activated UI and Show Description of the animal(s)
                     desPanel.SetActive(true);
-                    animalName.text = animalDatas[i].answerAnimalName.ToString();
-                    animalDes.text = animalDatas[i].description.ToString();
+                    animalName.text = animalDatas[j].answerAnimalName.ToString();
+                    //animalDes.text = animalDatas[i].description.ToString();
 
                 }
                 else if (detectedTrackerName == "")
@@ -72,7 +72,7 @@ public class Game_Manager : DefaultTrackableEventHandler
                     //Deactivated UI
                     desPanel.SetActive(false);
                     animalName.text = "";
-                    animalDes.text = "";
+                    //animalDes.text = "";
 
                 }
 
