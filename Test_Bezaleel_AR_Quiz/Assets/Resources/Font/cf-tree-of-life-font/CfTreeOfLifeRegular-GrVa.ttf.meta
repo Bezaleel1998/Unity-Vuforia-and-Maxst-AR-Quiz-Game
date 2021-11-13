@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: f99d04e512607ce4cb50eb332767f715
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: CF Tree of Life
+  fontNames:
+  - CF Tree of Life
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: d664a9ce52d01c0459d64aac3e1e257c, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

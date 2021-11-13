@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using DataCharacter;
 using Vuforia;
+using UnityEngine.Android;
 
 public class GameManager : DefaultTrackableEventHandler
 {
@@ -24,10 +25,14 @@ public class GameManager : DefaultTrackableEventHandler
     private int dataIndex;
     [SerializeField]
     private int scores;
+    private float initialDistance;
+    private Vector3 initialScale;
+    private bool uiQuizIsActive = false;
 
     [Header("Game Object")]
     [SerializeField] private GameObject[] animal3DObject;
     public GameObject gameOverMenu;
+    [SerializeField] private Camera mainCamera;
 
     [Header("TimerVariable")]
     [Tooltip("15 minutes = 900 second")]
@@ -104,7 +109,11 @@ public class GameManager : DefaultTrackableEventHandler
                     animal3DObject[i].gameObject.SetActive(true);
                     Debug.Log("<color=lime>3D Activated : " + animal3DObject[i] + "</color>");
 
-                    questionUI.gameObject.SetActive(true);
+                    //PinchToZoom(i);
+                    TouchToSelectGameObj();
+
+                    //questionUI.gameObject.SetActive(true);
+
                     questionText.text = animalDatas[j].question.ToString();
 
                     dataIndex = j;
@@ -112,9 +121,6 @@ public class GameManager : DefaultTrackableEventHandler
                     InputChoicesButtonText(dataIndex);
 
                     CheckingAnswersOnTracker(dataIndex);
-
-                    
-
 
                 }
                 else if (detectedTrackerName.Equals(""))
@@ -276,6 +282,84 @@ public class GameManager : DefaultTrackableEventHandler
 
     #endregion
 
+    #region TouchControl
+
+    public void PinchToZoom(int i)
+    {
+
+        /**
+         * scale using pinch involves two touches
+         * we need to count both of the touches, store it somewhere, and measure the distance between pinch
+         * and scale game object depending on the pinch
+         * we need to ignore it if the pinch distance small (incase of touching accidentally)
+         **/
+
+        if (Input.touchCount == 2)
+        {
+
+            var touchZero = Input.GetTouch(0);
+            var touchOne = Input.GetTouch(1);
+
+            //if anyone of touchzero or touchone is cancelled or maybe, ended then do nothing
+            if (touchZero.phase == TouchPhase.Ended || touchZero.phase == TouchPhase.Canceled ||
+                touchOne.phase == TouchPhase.Ended || touchOne.phase == TouchPhase.Canceled)
+            {
+                return;
+            }
+            if (touchZero.phase == TouchPhase.Began || touchOne.phase == TouchPhase.Began)
+            {
+
+                initialDistance = Vector2.Distance(touchZero.position, touchOne.position);
+                initialScale = animal3DObject[i].transform.localScale;
+                //Debug.Log("Initial Distance = " + initialDistance + " GameObject Name = " + animal3DObject[i].name);
+
+            }
+            else // if touch move
+            {
+
+                var currentDistance = Vector2.Distance(touchZero.position, touchOne.position);
+                //if accidentally touched or pinch movement with very small movement
+                if (Mathf.Approximately(initialDistance, 0))
+                {
+                    return; //do nothing
+                }
+
+                var factor = currentDistance / initialDistance;
+                animal3DObject[i].transform.localScale = initialScale * factor;
+
+            }
+
+        }
+
+    }
+
+    public void TouchToSelectGameObj()
+    {
+        // We assume that there was only one touch and take the first 
+
+        if ((Input.touchCount > 0) && (Input.GetTouch(0).phase == TouchPhase.Began))
+        {
+
+            Touch touch = Input.GetTouch(0);
+
+            Ray ray = mainCamera.ScreenPointToRay(touch.position);
+            RaycastHit raycastHit;
+            if (Physics.Raycast(ray, out raycastHit))
+            {
+
+                Debug.Log("touch position = " + raycastHit.point);
+                if (raycastHit.collider.CompareTag("3DModels"))
+                {
+                    questionUI.gameObject.SetActive(true);
+                }
+                 
+            }
+
+        }
+
+    }
+
+    #endregion
 
     #region ButtonActionQuizGame
 
@@ -367,6 +451,5 @@ public class GameManager : DefaultTrackableEventHandler
     }
 
     #endregion
-
 
 }
